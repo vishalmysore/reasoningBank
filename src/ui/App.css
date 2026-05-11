@@ -1,0 +1,58 @@
+/* ============================================================
+   App-specific styles (component layout, panels, etc.)
+   ============================================================ */
+
+/* ── Panels ── */
+.input-panel,
+.itinerary-panel,
+.memory-panel,
+.lesson-panel {
+  padding: 22px;
+  transition: box-shadow var(--transition);
+}
+
+.input-panel:hover,
+.memory-panel:hover,
+.lesson-panel:hover {
+  box-shadow: var(--shadow-glow), var(--shadow-card);
+}
+
+/* ── Memory cards ── */
+.memory-card {
+  transition: transform var(--transition), box-shadow var(--transition),
+              border-color var(--transition);
+}
+.memory-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--border-glow);
+  box-shadow: 0 6px 20px rgba(96,165,250,0.1);
+}
+
+/* ── Itinerary panel tabs ── */
+.itinerary-panel {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* ── Lesson panel gold glow on mount ── */
+.lesson-panel {
+  animation: fadeIn 0.5s ease both, pulse-glow 2s ease-in-out 0.5s 3;
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+/* ── Form group spacing ── */
+.form-group { display: flex; flex-direction: column; }
+
+/* ── Step log ── */
+.step-log {
+  border-left: 3px solid var(--accent-primary);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+/* ── Responsive tweaks ── */
+@media (max-width: 640px) {
+  main { padding: 16px; }
+  .input-panel, .itinerary-panel, .memory-panel, .lesson-panel {
+    padding: 16px;
+  }
+}
