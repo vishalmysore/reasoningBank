@@ -2,7 +2,7 @@
 
 > A fully browser-based AI travel agent that **learns from every trip** using a structured memory system — no backend, no database, runs entirely on GitHub Pages.
 
-[![Deploy to GitHub Pages](https://github.com/YOUR_USERNAME/reasoningBank/actions/workflows/deploy.yml/badge.svg)](https://github.com/YOUR_USERNAME/reasoningBank/actions/workflows/deploy.yml)
+
 
 ---
 
