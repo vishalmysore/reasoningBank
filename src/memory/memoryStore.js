@@ -13,28 +13,32 @@ function safeSetItem(key, value) {
     localStorage.setItem(key, value);
     return true;
   } catch (e) {
-    if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
-      console.warn('[Storage] Quota exceeded. Attempting to prune trajectories...');
-      // If we hit quota, the best thing to do is purge old trajectories
-      // as they are the largest items and less critical than memories.
-      if (key === TRAJECTORIES_KEY) {
-        let items = JSON.parse(value);
-        if (items.length > 5) {
-          // Keep only the most recent 5 and try again
-          const pruned = items.slice(0, 5);
-          localStorage.setItem(TRAJECTORIES_KEY, JSON.stringify(pruned));
-          return true;
+    if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED' || e.code === 22) {
+      console.warn(`[Storage] Quota exceeded for ${key}. Hard-purging trajectories to recover space...`);
+      
+      // 1. Always purge trajectories first as they are secondary data
+      localStorage.removeItem(TRAJECTORIES_KEY);
+      
+      try {
+        // 2. Try setting the item again
+        localStorage.setItem(key, value);
+        return true;
+      } catch (e2) {
+        // 3. If it still fails, it means even with trajectories gone, the data is too large 
+        // or the origin quota is full of other apps' data.
+        if (key === MEMORIES_KEY) {
+          console.warn('[Storage] Memory quota exceeded. Pruning memories to last 10...');
+          const items = JSON.parse(value);
+          const pruned = items.slice(0, 10);
+          try {
+            localStorage.setItem(MEMORIES_KEY, JSON.stringify(pruned));
+            return true;
+          } catch {
+            console.error('[Storage] CRITICAL: Origin quota is completely full (likely by other apps on this domain).');
+            return false;
+          }
         }
-      } else {
-        // If memories hit quota, we clear trajectories entirely to make room
-        localStorage.removeItem(TRAJECTORIES_KEY);
-        try {
-          localStorage.setItem(key, value);
-          return true;
-        } catch {
-          console.error('[Storage] Hard quota limit reached even after pruning.');
-          return false;
-        }
+        return false;
       }
     }
     return false;

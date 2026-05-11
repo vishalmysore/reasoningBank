@@ -4,6 +4,7 @@
  */
 import React, { useState, useEffect } from 'react';
 import { setLLMConfig, getLLMConfig, PROVIDERS, getDefaultProxy, testConnection } from '../../utils/llm.js';
+import { clearMemories, clearTrajectories } from '../../memory/memoryStore.js';
 
 export default function SettingsModal({ onClose, onSave }) {
   const cfg = getLLMConfig();
@@ -196,6 +197,31 @@ export default function SettingsModal({ onClose, onSave }) {
             All API calls are routed via this proxy using the <code style={{ fontSize: 10, color: 'var(--accent-primary)' }}>x-target-url</code> header.
             Leave as default or point to your own Cloudflare Worker.
           </p>
+        </div>
+
+        <div className="divider" />
+
+        {/* ── Danger Zone ── */}
+        <div style={{ marginBottom: 20 }}>
+          <label style={{ color: 'var(--accent-red)' }}>⚠️ Danger Zone</label>
+          <div style={{ marginTop: 8 }}>
+            <button type="button" className="btn btn-ghost" style={{
+              width: '100%', color: 'var(--accent-red)', borderColor: 'rgba(248,113,113,0.2)',
+              fontSize: 12, padding: '10px'
+            }} onClick={() => {
+              if (window.confirm('Delete all stored memories and trajectories? This cannot be undone.')) {
+                clearMemories();
+                clearTrajectories();
+                onSave?.();
+                onClose();
+              }
+            }}>
+              🗑️ Clear All Local Data
+            </button>
+            <p style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: 6, textAlign: 'center' }}>
+              Useful if you encounter "Storage Quota Exceeded" errors on this domain.
+            </p>
+          </div>
         </div>
 
         {/* ── Actions ── */}
