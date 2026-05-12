@@ -44,7 +44,7 @@ function Header({ memCount, onSettings, configVersion }) {
             fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 16,
             background: 'var(--gradient-accent)',
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-          }}>ReasoningBank</div>
+          }}>ReasoningBank Demo</div>
           <div style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: -1 }}>
             AI Travel Agent · Self-Improving Memory
           </div>
@@ -275,7 +275,7 @@ export default function App() {
         fontSize: 12, color: 'var(--text-muted)',
       }}>
         <span>
-          🏦 ReasoningBank · A{' '}
+          🏦 ReasoningBank Demo · A{' '}
           <a href="https://arxiv.org/abs/2406.14228" target="_blank" rel="noopener noreferrer"
             style={{ color: 'var(--accent-primary)', textDecoration: 'none' }}>
             Google Research
