@@ -4,7 +4,7 @@
  * All calls routed through a configurable CORS proxy.
  */
 
-const DEFAULT_PROXY = 'https://rough-tree-aee4.vishalmysore.workers.dev';
+const DEFAULT_PROXY = 'https://quantumstudio.visrow.workers.dev/';
 
 export const PROVIDERS = [
   {

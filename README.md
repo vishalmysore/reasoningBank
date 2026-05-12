@@ -173,7 +173,7 @@ npm run build
 ## Proxy & NVIDIA Support
 
 This project follows the **LLMWikiZZ** pattern:
-1. **Proxy Routing**: All API calls go through a configurable proxy URL (default: `https://rough-tree-aee4.vishalmysore.workers.dev`). It uses the `x-target-url` header to route requests.
+1. **Proxy Routing**: All API calls go through a configurable proxy URL (default: `https://quantumstudio.visrow.workers.dev/`). It uses the `x-target-url` header to route requests.
 2. **NVIDIA NIM**: Fully supported via the `https://integrate.api.nvidia.com/v1` endpoint.
 
 You can configure these in the **Settings** modal.
