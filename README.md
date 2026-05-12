@@ -2,6 +2,18 @@
 
 > **This is an unofficial demo implementation** of the ReasoningBank concept described in [Google Research (arXiv:2406.14228)](https://arxiv.org/abs/2406.14228). It is not affiliated with or endorsed by Google. The goal is to illustrate the core idea — structured memory + reflection + retrieval around an LLM — in a minimal, runnable browser app.
 
+## Demo vs. Paper — What's Different
+
+This demo captures the spirit of ReasoningBank but intentionally simplifies three aspects that the original paper implements more rigorously:
+
+| Aspect | This Demo | Original Paper |
+|---|---|---|
+| **Retrieval** | Keyword scoring against tags and content | Embedding-based vector similarity search |
+| **Reflection** | Single lesson extracted from every trip | Dual-signal: successes → winning strategy; failures → root-cause diagnosis with preventative logic |
+| **Memory maturation** | Each lesson stored independently | Memories evolve over time — simple heuristics consolidate into compositional, cross-task strategies |
+
+These simplifications keep the app fully browser-based with no backend (embeddings would require an API call or a bundled model). The core loop — retrieve → plan → reflect → store → improve — faithfully represents the paper's key idea.
+
 ---
 
 ## What is ReasoningBank?

@@ -33,7 +33,7 @@ All API calls are routed through a configurable CORS proxy using the `x-target-u
 
 ### Storage (`src/memory/memoryStore.js`)
 
-Two localStorage keys: `reasoningbank_memories` and `reasoningbank_trajectories`. `safeSetItem` handles `QuotaExceededError` by purging trajectories first, then pruning memories to the last 10 as a last resort. Trajectories are capped at 20 entries. The Settings modal has a "Clear All Data" button for manual recovery.
+Two IndexedDB object stores: `memories` and `trajectories`. All store functions are async. On first load a one-time migration moves any existing localStorage data into IndexedDB. The Settings modal has a "Clear All Data" button for manual recovery.
 
 ### Data Models (`src/memory/schema.js`)
 
@@ -43,6 +43,16 @@ Two localStorage keys: `reasoningbank_memories` and `reasoningbank_trajectories`
 ### UI Structure (`src/ui/`)
 
 `App.jsx` is the single stateful root — it calls `runTrip()` and distributes results. Layout is a two-column grid: left column has `InputPanel` → `LessonView` → `MemoryView`; right column has `ItineraryView` (tabbed: Plan / Reasoning / Agent Log). `SettingsModal` is a modal overlay.
+
+## Demo vs. Paper — Intentional Simplifications
+
+This is a demo. Three areas differ from the original Google Research paper:
+
+- **Retrieval** — uses keyword scoring (`retriever.js`), not embedding-based vector similarity. Embeddings would require an API call or bundled model, breaking the zero-backend constraint.
+- **Reflection** — always produces one lesson regardless of outcome. The paper uses dual-signal extraction: successes → abstract the winning strategy; failures → diagnose root cause and derive preventative logic.
+- **Memory maturation** — lessons are stored independently with no merging. The paper shows memories evolving from simple heuristics into compositional cross-task strategies through consolidation over time.
+
+Do not "fix" these toward the paper's approach without understanding the browser-only constraint.
 
 ### Vite Config
 
