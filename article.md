@@ -61,6 +61,9 @@ Unlike simple chat bots, this agent explicitly captures its "chain of thought."
 - **Explicit Reasoning**: The LLM is prompted to return a JSON object that separates the `itinerary` (the "what") from the `reasoning` (the "why"). This reasoning field is where the agent explains how it applied retrieved memories to the current task.
 - **Persistence**: Both the logs and the reasoning are saved in a `Trajectory` object in `localStorage`, allowing for a full audit of the agent's decision-making history.
 
+### The CORS Proxy Pattern
+Because browser security (CORS) blocks direct calls to these API endpoints, the app adopts a pattern seen in tools like **LLMWikiZZ**: it routes requests through a lightweight CORS-bypass proxy (default: `https://quantumstudio.visrow.workers.dev/`). This proxy simply passes through the request body and headers to the `x-target-url` specified by the client, allowing for a fully static, frontend-only deployment on GitHub Pages.
+
 ---
 
 ## Architecture: Zero-Server, Multi-Provider
