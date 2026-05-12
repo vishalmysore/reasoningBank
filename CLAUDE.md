@@ -16,7 +16,7 @@ There is no test suite. The app uses a `mock` provider (selectable in Settings) 
 
 ## Architecture
 
-**ReasoningBank** is a browser-only React + Vite SPA. There is no backend — all state lives in `localStorage`. It deploys to GitHub Pages via `.github/workflows/deploy.yml` on every push to `main`.
+**ReasoningBank Demo** is a browser-only React + Vite SPA. There is no backend — all state lives in `localStorage`. It deploys to GitHub Pages via `.github/workflows/deploy.yml` on every push to `main`.
 
 ### The Agent Loop
 
@@ -46,4 +46,4 @@ Two localStorage keys: `reasoningbank_memories` and `reasoningbank_trajectories`
 
 ### Vite Config
 
-`vite.config.js` sets `base: '/reasoningBank/'` for production builds (GitHub Pages sub-path) and `base: '/'` for dev.
+`vite.config.js` sets `base: '/reasoningBankDemo/'` for production builds (GitHub Pages sub-path) and `base: '/'` for dev.
