@@ -208,10 +208,10 @@ export default function SettingsModal({ onClose, onSave }) {
             <button type="button" className="btn btn-ghost" style={{
               width: '100%', color: 'var(--accent-red)', borderColor: 'rgba(248,113,113,0.2)',
               fontSize: 12, padding: '10px'
-            }} onClick={() => {
+            }} onClick={async () => {
               if (window.confirm('Delete all stored memories and trajectories? This cannot be undone.')) {
-                clearMemories();
-                clearTrajectories();
+                await clearMemories();
+                await clearTrajectories();
                 onSave?.();
                 onClose();
               }

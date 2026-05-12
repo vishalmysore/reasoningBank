@@ -185,7 +185,7 @@ function ErrorToast({ message, onClose }) {
 
 // ── Main App ──────────────────────────────────────────────────
 export default function App() {
-  const [memories,      setMemories]     = useState(() => getAllMemories());
+  const [memories,      setMemories]     = useState([]);
   const [result,        setResult]       = useState(null);
   const [isLoading,     setIsLoading]    = useState(false);
   const [currentStep,   setCurrentStep]  = useState('');
@@ -194,8 +194,13 @@ export default function App() {
   // Bump this to force Header to re-read getLLMConfig() after settings save
   const [configVersion, setConfigVersion] = useState(0);
 
-  // Refresh memory list from localStorage
-  const refreshMemories = useCallback(() => setMemories(getAllMemories()), []);
+  // Refresh memory list from IndexedDB
+  const refreshMemories = useCallback(() => {
+    getAllMemories().then(setMemories);
+  }, []);
+
+  // Load memories from IndexedDB on mount
+  useEffect(() => { refreshMemories(); }, [refreshMemories]);
 
   // Auto-prompt settings on first visit
   useEffect(() => {

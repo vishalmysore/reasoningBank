@@ -96,13 +96,13 @@ export default function MemoryView({ memories, onMemoriesChange }) {
       || m.content.some(c => c.toLowerCase().includes(q));
   });
 
-  const handleDelete = (id) => {
-    deleteMemory(id);
+  const handleDelete = async (id) => {
+    await deleteMemory(id);
     onMemoriesChange();
   };
 
-  const handleClearAll = () => {
-    clearMemories();
+  const handleClearAll = async () => {
+    await clearMemories();
     onMemoriesChange();
     setConfirmClear(false);
   };

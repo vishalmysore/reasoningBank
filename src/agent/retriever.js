@@ -59,8 +59,8 @@ function scoreMemory(memory, keywords) {
  * @param {number} topN
  * @returns {{ memories: Memory[], keywords: string[] }}
  */
-export function retrieveRelevantMemories(input, topN = 5) {
-  const all = getAllMemories();
+export async function retrieveRelevantMemories(input, topN = 5) {
+  const all = await getAllMemories();
   if (!all.length) return { memories: [], keywords: [] };
 
   const keywords = extractKeywords(input);

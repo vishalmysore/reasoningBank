@@ -35,7 +35,7 @@ export async function runTrip(request, onStep = () => {}) {
 
   // ── Step 1: Retrieve relevant memories ────────────────────
   log('🔍 Searching ReasoningBank for relevant past experiences…');
-  const { memories: memoriesUsed, keywords } = retrieveRelevantMemories(
+  const { memories: memoriesUsed, keywords } = await retrieveRelevantMemories(
     `${request.destination} ${request.preferences || ''}`,
     5
   );
@@ -57,7 +57,7 @@ export async function runTrip(request, onStep = () => {}) {
     plan:  itinerary,
     reasoningSteps: steps.slice(),
   });
-  saveTrajectory(trajectory);
+  await saveTrajectory(trajectory);
   log('✅ Trajectory saved to ReasoningBank.');
 
   // ── Step 4: Reflect and extract new lesson ────────────────
@@ -70,7 +70,7 @@ export async function runTrip(request, onStep = () => {}) {
   log(`✨ New lesson learned: "${newLesson.title}"`);
 
   // ── Step 5: Save lesson to memory ─────────────────────────
-  saveMemory(newLesson);
+  await saveMemory(newLesson);
   log('💡 New lesson stored in ReasoningBank memory.');
 
   return {
